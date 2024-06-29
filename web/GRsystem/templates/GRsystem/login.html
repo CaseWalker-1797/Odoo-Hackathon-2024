@@ -1,0 +1,50 @@
+{% extends "GRsystem/index.html" %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+
+</style>
+
+<body style="background: #8E2DE2;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #7739f3, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #110033, #00e043); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+">
+  <div class="jumbotron text-center" style="background: linear-gradient(to right, #110033, #00e043)">
+    <h1 style="color:white">Welcome to Grievance Support System
+</h1>
+    <p style="color:white">Choose the Preferred Login Below.</p>
+  </div>
+  {% load static %}
+  <center>
+    <div class="row d-flex justify-content-center " style="padding-bottom: 70px;">
+      <div class="col-sm-3">
+        <div class="card mx-auto " style="padding-bottom: 10px;">
+          <div class="col" >
+            <br>
+            <!-- <img src="{% static 'GRsystem/img/student.png' %}" class="img-rounded" alt="Cinque Terre"> -->
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_88cr9d6u.json" background="transparent"
+              speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+            <a href="/signin/"><button type="button" class="btn  btn-outline-primary">Employee Login</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card mx-auto" style="padding-bottom: 10px;">
+          <div class="col">
+            <br>
+            <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_p3hBgHZGze.json" background="transparent"
+              speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+            <a href="http://127.0.0.1:8000/admin/login/?next=/admin/" class="btn  btn-outline-primary">Admin Login</a>
+            <!-- <a href="/admin/" class="btn  btn-outline-primary">Admin Login</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </center>
+</body>
+
+{% endblock content %}

@@ -1,0 +1,254 @@
+{% extends "GRsystem/index.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>All Complaints</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static " GRsystem/extra/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/eb3175e54f.js" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <!-- <link href="{% static " GRsystem/css/simple-sidebar.css" %}" rel="stylesheet"> -->
+  <style>
+    body,
+    html {
+      height: 100%;
+    }
+
+    .messages-box {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .messages-list {
+      padding-left: 0;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      list-style: none;
+    }
+
+    .message-text {
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .sent {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+    }
+
+    .received {
+      background-color: #f1f0f0;
+      align-self: flex-start;
+    }
+
+    .message-form {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      background-color: #f8f9fa;
+    }
+
+    .message-input {
+      flex: 1;
+      border-radius: 0;
+      border-right: none;
+    }
+
+    .btn-send {
+      border-radius: 0;
+    }
+
+    .chat-container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<!-- <body style="background: #8E2DE2;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4A00E0, #4A00E0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  "> -->
+
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading"> GRSystem </div>
+    <div class="list-group list-group-flush">
+      {% if user.is_authenticated %}
+      <a href="" class="list-group-item list-group-item-action active"> Welcome : {{user.username}} </a>
+      <a href='/dashboard/' class="list-group-item list-group-item-action">Profile <i class="fa-solid fa-user"></i></a>
+      <a href='/password/' class="list-group-item list-group-item-action">Password Reset <i
+          class="fa-solid fa-key"></i></a>
+      <a href="/complaints/" class="list-group-item list-group-item-action">Add Complaints <i
+          class="fa-solid fa-arrow-right"></i></a>
+      <a href="/slist/" class="list-group-item list-group-item-action">Solved Complaints <i
+          class="fa-solid fa-check"></i></a>
+      <a href="/list/" class="list-group-item list-group-item-action">UnSolved Complaints <i
+          class="fa-solid fa-xmark"></i></a>
+      <a href="/mentalhealthresource/" class="list-group-item list-group-item-action">Mental Health Resources
+        <i class="fa-brands fa-cloudflare"></i></a>
+      <a href="/council/" class="list-group-item list-group-item-action">Consultative Panel</a>
+      <a href="/diagnosis/" class="list-group-item list-group-item-action">Health Prognosis</a>
+      <a href="#" class="list-group-item list-group-item-action">Cyber Crime Zone</a>
+
+      {% endif %}
+
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper" class="page-content">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <button class="btn btn-primary" id="menu-toggle">DashBoard</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+
+    </nav>
+    <br>
+    <div class="chat-container">
+      <div class="card flex-grow-1">
+        <div class="card-header bg-primary text-white">Chat</div>
+        {% if user.is_authenticated %}
+        <div class="card-header bg-primary text-white"><b>Welcome : {{user.username}}</b> <a style="color: yellow;"
+            href="logout">Logout</a></div>
+        {% else %}
+        <div class="card-header bg-primary text-white"><a style="color: yellow" href="login">Login</a> <a
+            style="color: yellow;" href="register">Register</a></div>
+        {% endif %}
+        <div class="card-body messages-box">
+
+          <ul class="list-unstyled messages-list">
+
+            <!-- <li class="message received">
+              <div class="message-text">
+                <div class="message-sender">
+                  <b>AI Chatbot</b>
+                </div>
+                <div class="message-content">
+                  Hi {{user.username}}, I am your AI Chatbot, you can ask me anything.
+                </div>
+              </div>
+            </li> -->
+
+            {% for chat in chats %}
+            {% if chat.user == request.user %}
+
+            <li class="message sent">
+              <div class="message-text">
+                <div class="message-sender">
+                  <b>You</b>
+                </div>
+                <div class="message-content">
+                  {{chat.message}}
+                </div>
+              </div>
+            </li>
+
+            <li class="message received">
+              <div class="message-text">
+                <div class="message-sender">
+                  <b>AI Chatbot</b>
+                </div>
+                <div class="message-content">
+                  {{chat.response}}
+                </div>
+              </div>
+            </li>
+
+            {% endif %}
+            {% endfor %}
+
+          </ul>
+
+        </div>
+        <br><br>
+        <br><br>
+        <br><br>
+      </div>
+      <form class="message-form">
+        {%csrf_token%}
+        <div class="input-group">
+          <input type="text" class="form-control message-input" placeholder="Type your message...">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary btn-send">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      const messagesList = document.querySelector('.messages-list');
+      const messageForm = document.querySelector('.message-form');
+      const messageInput = document.querySelector('.message-input');
+
+      messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const message = messageInput.value.trim();
+        if (message.length === 0) {
+          return;
+        }
+
+        const messageItem = document.createElement('li');
+        messageItem.classList.add('message', 'sent');
+        messageItem.innerHTML = `
+            <div class="message-text">
+                <div class="message-sender">
+                    <b>You</b>
+                </div>
+                <div class="message-content">
+                    ${message}
+                </div>
+            </div>`;
+        messagesList.appendChild(messageItem);
+
+        messageInput.value = '';
+
+        fetch('', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'message': message
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            const response = data.response;
+            const messageItem = document.createElement('li');
+            messageItem.classList.add('message', 'received');
+            messageItem.innerHTML = `
+            <div class="message-text">
+                <div class="message-sender">
+                  <b>AI Chatbot</b>
+                </div>
+                <div class="message-content">
+                    ${response}
+                </div>
+            </div>
+              `;
+            messagesList.appendChild(messageItem);
+          });
+      });
+
+    </script>
+    {% endblock %}

@@ -1,0 +1,160 @@
+{% extends "GRsystem/index.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>All Complaints</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static " GRsystem/extra/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/eb3175e54f.js" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <!-- <link href="{% static " GRsystem/css/simple-sidebar.css" %}" rel="stylesheet"> -->
+  <style>
+    .healtTrack {
+      right: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<!-- <body style="background: #8E2DE2;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #4A00E0, #4A00E0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+"> -->
+
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading"> GRSystem </div>
+    <div class="list-group list-group-flush">
+      {% if user.is_authenticated %}
+      <a href="" class="list-group-item list-group-item-action active"> Welcome : {{user.username}} </a>
+      <a href='/dashboard/' class="list-group-item list-group-item-action">Profile <i class="fa-solid fa-user"></i></a>
+      <a href='/password/' class="list-group-item list-group-item-action">Password Reset <i
+          class="fa-solid fa-key"></i></a>
+      <a href="/complaints/" class="list-group-item list-group-item-action">Add Complaints <i
+          class="fa-solid fa-arrow-right"></i></a>
+      <a href="/slist/" class="list-group-item list-group-item-action">Solved Complaints <i
+          class="fa-solid fa-check"></i></a>
+      <a href="/list/" class="list-group-item list-group-item-action">UnSolved Complaints <i
+          class="fa-solid fa-xmark"></i></a>
+      <a href="/mentalhealthresource/" class="list-group-item list-group-item-action">Mental Health Resources
+        <i class="fa-brands fa-cloudflare"></i></a>
+      <a href="/council/" class="list-group-item list-group-item-action">Consultative Panel</a>
+      <a href="/diagnosis/" class="list-group-item list-group-item-action">Health Prognosis</a>
+      <a href="/getHelp/" class="list-group-item list-group-item-action">Get Help</a>
+
+      {% endif %}
+
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <div class="content-wrapper healtTrack">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <button class="btn btn-primary" id="menu-toggle">DashBoard</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </nav>
+    <br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="card-body">
+          <h4 class="text-center alert alert-info">Health Prognosis</h4>
+
+          <br />
+
+          <form method="POST" action="" class="myform">
+            {% csrf_token %}
+
+            <input type="hidden" value="{{ user.id }}" name="" id="user_id" />
+            <div class="form-group row">
+              <label for="Symptom" class="col-sm-2 col-form-label">1st Symptom</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" list="symp" multiple="multiple" name="Symptom1" id="Symptom1"
+                  placeholder="Please Choose Symptom" required="" />
+              </div>
+              <datalist id="symp">
+                {% for symp in symptoms %}
+                <option value="{{symp}}">{{symp}}</option>
+                {% endfor %}
+              </datalist>
+            </div>
+
+            <div class="form-group row">
+              <label for="Symptom2" class="col-sm-2 col-form-label">2nd Symptom</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" list="symp" name="Symptom2" id="Symptom2"
+                  placeholder="Please Choose Symptom" required="" />
+              </div>
+              <datalist id="symp">
+                {% for symp in symptoms %}
+                <option value="{{symp}}">{{symp}}</option>
+                {% endfor %}
+              </datalist>
+            </div>
+
+            <div class="form-group row">
+              <label for="Symptom3" class="col-sm-2 col-form-label">3rd Symptom</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" list="symp" name="Symptom3" id="Symptom3"
+                  placeholder="Please Choose Symptom" required="" />
+              </div>
+              <datalist id="symp">
+                {% for symp in symptoms %}
+                <option value="{{symp}}">{{symp}}</option>
+                {% endfor %}
+              </datalist>
+            </div>
+
+            <div class="form-group row">
+              <label for="Symptom4" class="col-sm-2 col-form-label">4th Symptom</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" multiple="multiple" list="symp" id="Symptom4" name="Symptom4"
+                  placeholder="Please Choose Symptom" required="" />
+              </div>
+              <datalist id="symp">
+                {% for symp in symptoms %}
+                <option value="{{symp}}">{{symp}}</option>
+                {% endfor %}
+              </datalist>
+            </div>
+
+            <div class="form-group row">
+              <label for="Symptom5" class="col-sm-2 col-form-label">5th Symptom</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" list="symp" id="Symptom5" name="Symptom5"
+                  placeholder="Please Choose Symptom" required="" />
+              </div>
+              <datalist id="symp">
+                {% for symp in symptoms %}
+                <option value="{{symp}}">{{symp}}</option>
+                {% endfor %}
+              </datalist>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-10 offset-sm-2">
+                <button type="button" class="btn btn-primary" id="predict_btn">
+                  Predict
+                </button>
+              </div>
+            </div>
+
+            <div id="result" class="col-sm-10 offset-sm-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

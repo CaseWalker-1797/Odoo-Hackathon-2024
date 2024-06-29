@@ -1,0 +1,86 @@
+{% extends "GRsystem/index.html" %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+{% block content %}
+<style>
+  body {
+    background-color: #0000 !important;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card {
+    border: #007bff !important;
+  }
+</style>
+{% load static %}
+
+{% comment %} <div class="card text-white" style="background-color: #097707;"> {% endcomment %}
+  <div class="" style="background-color: #097707;">
+    <p style="color:rgb(255, 255, 255); font-size:35px;">
+      <marquee scrollamount="15" direction="right"> <b>Organizational Grievance Support System
+</b></marquee>
+    </p>
+    <!-- <p style="color:white; text-align:justify;">
+    </p> -->
+  </div>
+  <br>
+{% comment %} </div> {% endcomment %}
+
+{% load static %}
+
+<center>
+  <br>
+  <br>
+  <br>
+  <div class="row  d-flex justify-content-center">
+    <div class="col-sm-3 col-sm-pull-4">
+      <div class="card text-white" style="width: 22rem; background-color: #0000;">
+        <!-- <img src="{% static 'GRsystem/img/r.mp4' %}" class="img-rounded" alt="Cinque Terre"> -->
+        <!-- <video src="{% static 'GRsystem/img/r.mp4' %}" loop autoplay class="img-rounded" alt="Cinque Terre"></video> -->
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <div class="card-body">
+          <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_vw3zs7wow6.json" background="transparent"
+            speed="1" style="width: 400px; height: 400px;" loop autoplay></lottie-player>
+          <p class="card-text" style="color:rgb(0, 0, 0); text-align:center">Register Anonymous Complaint </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 col-sm-pull-4" style="justify:center;">
+      <div class="card text-white" style="width: 22rem; background-color:  #0000; ">
+        <div class="card-body">
+          <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_iamfsx2i.json" background="transparent"
+            speed="1" style="width: 400px; height: 400px;" loop autoplay></lottie-player>
+            
+          <p class="card-text" style="color:rgb(0, 0, 0);">Counseling Appointments</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card text-white" style="width: 22rem; background-color:  #0000;">
+        <div class="card-body">
+          <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_fjv8qxqn.json" background="transparent"
+            speed="1" style="width: 400px; height: 400px;" loop autoplay></lottie-player>
+          <p class="card-text" style="color:rgb(0, 0, 0); text-align:center">Peer Support</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</center>
+{% endblock %}

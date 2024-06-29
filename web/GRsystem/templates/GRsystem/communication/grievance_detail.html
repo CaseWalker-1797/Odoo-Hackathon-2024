@@ -1,0 +1,85 @@
+{% extends "GRsystem/index.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>All Complaints</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static " GRsystem/extra/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/eb3175e54f.js" crossorigin="anonymous"></script>
+
+
+</head>
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading"> GRSystem </div>
+    <div class="list-group list-group-flush">
+      {% if user.is_authenticated %}
+      <a href="" class="list-group-item list-group-item-action active"> Welcome : {{user.username}} </a>
+      <a href='/dashboard/' class="list-group-item list-group-item-action">Profile <i class="fa-solid fa-user"></i></a>
+      <a href='/password/' class="list-group-item list-group-item-action">Password Reset <i
+          class="fa-solid fa-key"></i></a>
+      <a href="/complaints/" class="list-group-item list-group-item-action">Add Complaints <i
+          class="fa-solid fa-arrow-right"></i></a>
+      <a href="/slist/" class="list-group-item list-group-item-action">Solved Complaints <i
+          class="fa-solid fa-check"></i></a>
+      <a href="/list/" class="list-group-item list-group-item-action">UnSolved Complaints <i
+          class="fa-solid fa-xmark"></i></a>
+      <a href="/mentalhealthresource/" class="list-group-item list-group-item-action">Mental Health Resources
+        <i class="fa-brands fa-cloudflare"></i></a>
+      <a href="/council/" class="list-group-item list-group-item-action">Consultative Panel</a>
+      <a href="/diagnosis/" class="list-group-item list-group-item-action">Health Prognosis</a>
+      <a href="/getHelp/" class="list-group-item list-group-item-action">Get Help</a>
+
+
+      {% endif %}
+
+    </div>
+  </div>
+  <div id="page-content-wrapper " style="padding: 125px;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <h2>{{ grievance.title }}</h2>
+    </nav>
+    <br>
+
+    <p class="p-20">{{ grievance.description }}</p>
+
+    <h3>Messages</h3>
+    {% for message in messages %}
+    <div>
+      <strong>{{ message.sender.username }}:</strong> {{ message.content }} <br>
+      <small>{{ message.sent_at }}</small>
+      <form method="post" action="{% url 'reply_to_message' message.id %}">
+        {% csrf_token %}
+        <textarea name="content" placeholder="Reply..."></textarea>
+        <button type="submit">Reply</button>
+      </form>
+      {% for thread in message.thread_set.all %}
+      <div style="margin-left: 20px;">
+        <strong>{{ thread.sender.username }}:</strong> {{ thread.content }} <br>
+        <small>{{ thread.sent_at }}</small>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <h3>Send a Message</h3>
+    <form method="post" action="{% url 'send_message' grievance.id %}">
+      {% csrf_token %}
+      <textarea name="content" placeholder="Type your message..."></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  {% endblock %}
